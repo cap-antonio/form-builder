@@ -1,0 +1,62 @@
+.guide {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+
+    -webkit-transition: opacity 600ms, visibility 600ms;
+    transition: opacity 600ms, visibility 600ms;
+}
+.guide.opened {
+    background: rgb(46, 46, 46);
+    color: white;
+    padding: 1rem;
+    font-size: 10px;
+    overflow: scroll;
+    outline: none;
+    resize: both;
+    position: absolute;
+    height: 100%;
+    opacity: 95%;
+
+    z-index: 1;
+    visibility: visible;
+    opacity: 1;
+}
+.guide::-webkit-scrollbar {
+    width: .5rem;
+    height: .5rem;
+}   
+.guide::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+.guide_name {
+    font-size: 17px;
+    color: #d9534f;
+}
+.guide_warning {
+    font-size: 14px;
+    color: #d9534f;
+}
+@media screen and (max-width: 1145px) {
+    .guide {
+        width: 40rem;
+    }
+}
+@media screen and (max-width: 975px) {
+    .guide {
+        width: 30rem;
+    }
+}
+@media screen and (max-width: 740px) {
+    .guide {
+        width: 20rem;
+    }
+}
+@media screen and (max-width: 500px) {
+    .guide {
+        width: 16rem;
+    }
+}

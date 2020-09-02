@@ -1,0 +1,63 @@
+.input_field {
+    height: 20rem;
+    width: 100%;
+    font-size: 10px;
+    line-height: 1.2;
+    padding-left: 2rem;
+    overflow: scroll;
+    overflow-x: hidden;
+    outline: none;
+    resize: vertical;
+}
+.input_field::-webkit-scrollbar {
+    width: .5rem;
+}   
+.input_field::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+.hint {
+    background: rgb(214, 214, 214);
+    color: rgb(114, 114, 114);
+    text-align: center;
+    font-size: 10px;
+    margin-top: .5rem;
+    margin-bottom: 4rem;
+
+    border-radius: 0px 0px 4px 4px;
+    -moz-border-radius: 0px 0px 4px 4px;
+    -webkit-border-radius: 0px 0px 4px 4px;
+    border: 0px solid #000000;
+
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none;
+}
+.hint > i {
+    padding: .5rem;
+}
+
+.config_status_bar {
+    position: absolute;
+    bottom: 0;
+    padding: 1rem;
+    right: 0;
+    left: 0;
+}
+.btn {
+    width: 4rem;
+}
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+.muted {
+    opacity: 30%;
+}
+
+
+
+

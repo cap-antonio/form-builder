@@ -1,38 +1,47 @@
-.App {
-  text-align: center;
+.main_card {
+  position: relative;
+  background: white;
+  border-radius: 15px 15px 15px 15px;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  border: 0px solid #000000;
+
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .30);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, .30);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .30);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.guide_toggle {
+  color: #d9534f;
+  background: none;
+  font-size: 2rem;
+  position: absolute;
+  right: 50%;
+  padding-top: .5rem;
+  padding-right: 1rem;
+  z-index: 2;
+  cursor: pointer;
+}
+.guide_toggle.opened:active, .guide_toggle:active {
+  color: #dadada;
+  background: none;
+  font-size: 2rem;
+  position: absolute;
+  right: 50%;
+  padding-top: .5rem;
+  padding-right: 1rem;
+  z-index: 2;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+i.opened.guide_toggle {
+  color: #3d1817;
+  background: none;
+  font-size: 2rem;
+  position: absolute;
+  right: 50%;
+  padding-top: .5rem;
+  padding-right: 1rem;
+  z-index: 2;
+  cursor: pointer;
 }
