@@ -313,4 +313,3 @@ export default class Results extends Component {
         )
     }
 }
-

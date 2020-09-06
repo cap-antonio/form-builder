@@ -6,25 +6,30 @@ import {
   editModeSwitch,
   saveLocker, toggleSaveHint,
   toggleResetHint,
-  showSavedJson,
   toggleGuide,
 } from './redux/actions/actions';
-import { saveFormThunk, resetJsonInputsThunk, removeSavedFormThunk, 
-  onInputsChangedThunk, changeValueThunk, changeNumberThunk } from './redux/thunks';
+import {
+  saveFormThunk, resetJsonInputsThunk, removeSavedFormThunk,
+  onInputsChangedThunk, changeValueThunk, changeNumberThunk,
+  showSaveJsonThunk
+} from './redux/thunks';
 
 import './App.css'
 import Guide from './components/guide';
+import Alert from './components/alert';
 
 class App extends Component {
   render() {
     const { jsonInput, savedForms, editMode, mainForm,
-      saveHintShow, resetHintShow, savingLocked,
+      saveHintShow, resetHintShow, savingLocked, isAlertShowed,
       onInputsChangedThunk, changeNumberThunk, changeValueThunk,
       editModeSwitch, resetJsonInputsThunk, saveFormThunk,
       removeSavedFormThunk, toggleSaveHint, toggleResetHint,
-      inputsChanged, showSavedJson, guideOpened, toggleGuide } = this.props
+      inputsChanged, showSaveJsonThunk, guideOpened, toggleGuide,
+      alertStatus } = this.props
     return (
       <div className="container">
+        {isAlertShowed && <Alert status = {alertStatus} />}
         <h3 className="row justify-content-center pt-3">
           JSON To Form Builder
         </h3>
@@ -32,7 +37,7 @@ class App extends Component {
           <div className="main_card row col-10">
             <div>
               <i className={`fa ${guideOpened ? "fa-times-circle opened" : "fa-question-circle"} guide_toggle `}
-                 onClick = {() => toggleGuide()}/>
+                onClick={() => toggleGuide()} />
             </div>
             <div className="col-6 pt-3 border-right">
               <h5 className="text-center">
@@ -45,7 +50,7 @@ class App extends Component {
               />
             </div>
             <div className="grid-divider"><hr /></div>
-            <div><Guide guideOpened = {guideOpened}/></div>
+            <div><Guide guideOpened={guideOpened} /></div>
             <div className="col-6 pt-3">
               <h5 className="text-center">
                 Form result:
@@ -56,30 +61,35 @@ class App extends Component {
                 mainForm={mainForm} saveForm={saveFormThunk}
                 savingLocked={savingLocked} saveHintShow={saveHintShow}
                 toggleSaveHint={toggleSaveHint} savedForms={savedForms}
-                showSavedJson={showSavedJson}
+                showSavedJson={showSaveJsonThunk}
               />
             </div>
           </div>
         </div>
         {/* Render saved Forms */}
-        <h3 className="row justify-content-center">Saved Forms:</h3>
-        <div className="row p-3">
-          <div className="card-columns">
-            <Results inputs={jsonInput} savedForms={savedForms}
-              removeSavedForm={removeSavedFormThunk} inputsChanged={inputsChanged}
-              showSavedJson={showSavedJson}
-            />
+        {savedForms.length > 0 &&
+          <div>
+            <h3 className="row justify-content-center">Saved Forms:</h3>
+            <div className="row p-3">
+              <div className="card-columns">
+                <Results inputs={jsonInput} savedForms={savedForms}
+                  removeSavedForm={removeSavedFormThunk} inputsChanged={inputsChanged}
+                  showSavedJson={showSaveJsonThunk}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        }
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ jsonInput, savedForms, editMode, mainForm, saveHintShow, resetHintShow, savingLocked, inputsChanged, guideOpened }) => {
+const mapStateToProps = ({ jsonInput, savedForms, editMode, mainForm, saveHintShow, resetHintShow, savingLocked, inputsChanged, guideOpened, isAlertShowed, alertStatus }) => {
   return {
     jsonInput, savedForms, editMode, mainForm, saveHintShow,
-    resetHintShow, savingLocked, inputsChanged, guideOpened
+    resetHintShow, savingLocked, inputsChanged, guideOpened,
+    isAlertShowed, alertStatus
   }
 }
 
@@ -87,6 +97,6 @@ export default connect(mapStateToProps,
   {
     onInputsChangedThunk, changeNumberThunk, changeValueThunk, editModeSwitch,
     resetJsonInputsThunk, saveFormThunk, saveLocker, removeSavedFormThunk,
-    toggleSaveHint, toggleResetHint, showSavedJson, toggleGuide
+    toggleSaveHint, toggleResetHint, showSaveJsonThunk, toggleGuide
   }
 )(App)

@@ -1,7 +1,7 @@
 import { ON_INPUTS_CHANGE, CHANGE_NUMBER, CHANGE_VALUE, EDIT_MODE_SWITCH, 
     SAVE_FORM, RESET_JSON_INPUTS, SAVE_LOCKER, REMOVE_SAVED_FORM, 
     TOGGLE_SAVE_HINT, TOGGLE_RESET_HINT, SHOW_SAVED_JSON, 
-    TOGGEL_INPUTS_CHANGE_INDICATOR, TOGGLE_GUIDE_WINDOW } from "./actions/types"
+    TOGGEL_INPUTS_CHANGE_INDICATOR, TOGGLE_GUIDE_WINDOW, SHOW_NOTIFICATION, HIDE_NOTIFICATION } from "./actions/types"
 
 const initialState = {
     jsonInput: [
@@ -121,6 +121,8 @@ const initialState = {
             ]
         }
     ],
+    isAlertShowed: false,
+    alertStatus: null,
     editMode: false,
     mainForm: true,
     savingLocked: false,
@@ -135,10 +137,6 @@ const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
         // Handle JSON inputs changes
         case ON_INPUTS_CHANGE:
-            // let text = JSON.parse(payload)
-            // if (JSON.stringify(text[0]) === JSON.stringify(state.jsonInput[0])) {
-            //     return
-            // }
             return {
                 ...state,
                 jsonInput: [payload],
@@ -179,7 +177,6 @@ const reducer = (state = initialState, { type, payload }) => {
         case RESET_JSON_INPUTS:
             return {
                 ...state,
-                // savingLocked: true,
                 jsonInput: [
                     {
                         formName: 'Template',
@@ -269,6 +266,18 @@ const reducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 guideOpened: !state.guideOpened
+            }
+        // Show alert with status of action
+        case SHOW_NOTIFICATION:
+            return {
+                ...state,
+                isAlertShowed: true,
+                alertStatus: payload
+            }
+        case HIDE_NOTIFICATION:
+            return {
+                ...state,
+                isAlertShowed: false
             }
         default:
             return state

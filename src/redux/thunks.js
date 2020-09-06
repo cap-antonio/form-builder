@@ -1,4 +1,6 @@
-import { saveLocker, saveForm, resetJsonInputs, removeSavedForm, onInputsChange, toggleInputsChangeIndicator, changeValue, changeNumber } from "./actions/actions"
+import { saveLocker, saveForm, resetJsonInputs, removeSavedForm, onInputsChange, 
+    toggleInputsChangeIndicator, changeValue, changeNumber, showAlertNotification, 
+    hideAlertNotification, showSavedJson } from "./actions/actions"
 
 export const onInputsChangedThunk = (payload, jsonInput) => {
     return (dispatch) => {
@@ -32,7 +34,11 @@ export const changeNumberThunk = (value, name, sum) => {
 export const resetJsonInputsThunk = () => {
     return (dispatch) => {
         dispatch(resetJsonInputs())
+        dispatch(showAlertNotification('secondary'))
         dispatch(toggleInputsChangeIndicator(false))
+        setTimeout(() => {
+            dispatch(hideAlertNotification())
+          }, 3000)
     }
 }
 
@@ -44,6 +50,10 @@ export const saveFormThunk = (form, formNameExist) => {
             dispatch(saveForm(form))
             dispatch(resetJsonInputs())
             dispatch(toggleInputsChangeIndicator(false))
+            dispatch(showAlertNotification('success'))
+            setTimeout(() => {
+                dispatch(hideAlertNotification())
+              }, 3000)
         }
     }
 }
@@ -51,9 +61,24 @@ export const saveFormThunk = (form, formNameExist) => {
 export const removeSavedFormThunk = (key, formNameExist) => {
     return (dispatch) => {
         dispatch(removeSavedForm(key))
+        dispatch(showAlertNotification('warning'))
+        setTimeout(() => {
+            dispatch(hideAlertNotification())
+          }, 3000)
         if (formNameExist) {
             dispatch(saveLocker(true))
         }
         dispatch(saveLocker(false))
+    }
+}
+
+export const showSaveJsonThunk = (payload) => {
+    return (dispatch) => {
+        dispatch(showSavedJson(payload))
+        dispatch(showAlertNotification('secondary'))
+        dispatch(toggleInputsChangeIndicator(false))
+        setTimeout(() => {
+            dispatch(hideAlertNotification())
+          }, 3000)
     }
 }

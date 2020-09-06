@@ -6,7 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* background: linear-gradient(90deg, #5bfd55 0%, #57f0d6 37%, #9cb9f7 100%) !important; */
   background: linear-gradient(90deg, #fd8355 0%, #f0576c 37%, #f79cbd 100%) !important;
 }
 

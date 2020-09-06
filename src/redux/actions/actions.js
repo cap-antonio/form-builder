@@ -1,7 +1,10 @@
-import { ON_INPUTS_CHANGE, CHANGE_NUMBER, CHANGE_VALUE, 
+import { 
+    ON_INPUTS_CHANGE, CHANGE_NUMBER, CHANGE_VALUE, 
     EDIT_MODE_SWITCH, RESET_JSON_INPUTS, SAVE_FORM, SAVE_LOCKER, 
     REMOVE_SAVED_FORM, TOGGLE_SAVE_HINT, TOGGLE_RESET_HINT, 
-    SHOW_SAVED_JSON, TOGGEL_INPUTS_CHANGE_INDICATOR, TOGGLE_GUIDE_WINDOW } from './types'
+    SHOW_SAVED_JSON, TOGGEL_INPUTS_CHANGE_INDICATOR, TOGGLE_GUIDE_WINDOW, 
+    SHOW_NOTIFICATION, HIDE_NOTIFICATION 
+} from './types'
 
 export const onInputsChange = (newInput) => {
     return {
@@ -89,5 +92,18 @@ export const toggleResetHint = (status) => {
 export const toggleGuide = () => {
     return {
         type: TOGGLE_GUIDE_WINDOW,
+    }
+}
+
+export const showAlertNotification = (status) => {
+    return {
+        type: SHOW_NOTIFICATION,
+        payload: status
+    }
+}
+
+export const hideAlertNotification = () => {
+    return {
+        type: HIDE_NOTIFICATION
     }
 }
