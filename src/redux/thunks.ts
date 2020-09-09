@@ -12,17 +12,31 @@ type DispatchType = Dispatch<AllActionTypes>
 type ThunkType = ThunkAction<void, AppStateType, unknown, AllActionTypes>
 
 
-export const onInputsChangedThunk = (payload: string, 
+export const onInputsChangedThunk = (payload: string,
     jsonInput: Array<JSONInputType>): ThunkType => {
-        return (dispatch: DispatchType) => {
-            let text = JSON.parse(payload)
-            if (JSON.stringify(text[0]) === JSON.stringify(jsonInput[0])) {
-                return
+    return async (dispatch: DispatchType) => {
+        if (JSON.stringify(payload[0]) === JSON.stringify(jsonInput[0])) {
+            return
+        }
+        function validateJSON(payload: string) {
+            let checkedText
+            try {
+                checkedText = JSON.parse(payload)
+            } catch (e) {
+                checkedText = "error"
             }
-            dispatch(onInputsChange(text[0]))
+            return checkedText
+        }
+        if (validateJSON(payload) === 'error') {
+            await dispatch(resetJsonInputs())
+            dispatch(onInputsChange(jsonInput[0]))
+        } else {
+            let newText = JSON.parse(payload)
+            dispatch(onInputsChange(newText[0]))
             dispatch(saveLocker(false))
             dispatch(toggleInputsChangeIndicator(true))
         }
+    }
 }
 
 export const changeNumberThunk = (value: number, 
