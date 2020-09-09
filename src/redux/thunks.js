@@ -3,14 +3,28 @@ import { saveLocker, saveForm, resetJsonInputs, removeSavedForm, onInputsChange,
     hideAlertNotification, showSavedJson } from "./actions/actions"
 
 export const onInputsChangedThunk = (payload, jsonInput) => {
-    return (dispatch) => {
-        let text = JSON.parse(payload)
-        if (JSON.stringify(text[0]) === JSON.stringify(jsonInput[0])) {
+    return async (dispatch) => {
+        if (JSON.stringify(payload[0]) === JSON.stringify(jsonInput[0])) {
             return
         }
-        dispatch(onInputsChange(text[0]))
-        dispatch(saveLocker(false))
-        dispatch(toggleInputsChangeIndicator(true))
+        function validateJSON(payload) {
+            let checkedText
+            try {
+                checkedText = JSON.parse(payload)
+            } catch (e) {
+                checkedText = "error"
+            }
+            return checkedText
+        }
+        if (validateJSON(payload) === 'error') {
+            await dispatch(resetJsonInputs())
+            dispatch(onInputsChange(jsonInput[0]))
+        } else {
+            let newText = JSON.parse(payload)
+            dispatch(onInputsChange(newText[0]))
+            dispatch(saveLocker(false))
+            dispatch(toggleInputsChangeIndicator(true))
+        }
     }
 }
 
